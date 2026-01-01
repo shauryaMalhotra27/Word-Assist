@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android">
+    <initialLayout>@layout/widget_layout_v2</initialLayout>
+
+    <!-- Force Sleek Bar Design -->
+    <minWidth>280dp</minWidth>
+    <minHeight>40dp</minHeight>
+    
+    <targetCellWidth>4</targetCellWidth>
+    <targetCellHeight>1</targetCellHeight>
+    <maxResizeWidth>500dp</maxResizeWidth>
+    <maxResizeHeight>100dp</maxResizeHeight>
+
+    <!-- Restrict to horizontal resizing only to keep bar look -->
+    <resizeMode>horizontal</resizeMode>
+
+    <!-- Minimum resize -->
+    <minResizeWidth>180dp</minResizeWidth>
+    <minResizeHeight>40dp</minResizeHeight>
+
+    <updatePeriodMillis>0</updatePeriodMillis>
+    <description>Toggle Word Assist floating dictionary overlay</description>
+    <previewImage>@mipmap/ic_launcher_round</previewImage>
+</appwidget-provider>

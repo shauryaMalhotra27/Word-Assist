@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- The actual bar container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/widget_background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Left Side: App Icon + Title -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/widget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Word Assist"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Right Side: Controls -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Widget"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:layout_marginEnd="8dp"
+                android:textColor="#888888" />
+
+            <ImageView
+                android:id="@+id/widget_toggle_image"
+                android:layout_width="40dp"
+                android:layout_height="24dp"
+                android:src="@drawable/widget_switch_off"
+                android:contentDescription="Toggle" />
+
+            <TextView
+                android:id="@+id/widget_status_text"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:layout_marginStart="6dp"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

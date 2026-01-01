@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_green">#2E7D32</color>
+    <color name="dark_red">#F44336</color>
+    <color name="teal_700">#00796B</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#1F2933</color>
+    <color name="colorSurface">#374151</color>
+    <color name="colorAccent">#10B981</color>
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#D1D5DB</color>
+    <color name="textDisabled">#6B7280</color>
+    <color name="background">#111827</color>
+    <!-- Primary and Material 3 inspired grays (you can adjust to your app's theme) -->
+    <color name="gray_900">#FF212121</color>  <!-- Very dark gray (almost black) -->
+    <color name="gray_700">#FF424242</color>  <!-- Dark gray -->
+    <color name="gray_600">#FF757575</color>  <!-- Medium gray -->
+    <color name="gray_500">#FF9E9E9E</color>  <!-- Light medium gray -->
+
+    <!-- Red for error/alert (used in permission warning) -->
+    <color name="error_red">#FFE53935</color>
+    <color name="error_background">#FFFFEBEE</color>
+</resources>

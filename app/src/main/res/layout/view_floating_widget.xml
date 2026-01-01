@@ -1,0 +1,92 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- COLLAPSED -->
+    <LinearLayout
+        android:id="@+id/layoutCollapsed"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/ic_launcher"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <!-- EXPANDED -->
+    <LinearLayout
+        android:id="@+id/layoutExpanded"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/bg_floating"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <!-- Header: Word + Close Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txtWordTitle"
+                android:text="Select a word to get started"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/btnClose"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                app:tint="@color/black"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+
+        <!-- Phonetic + Adjective (e.g. /noʊn/ | adjective) -->
+        <TextView
+            android:id="@+id/txtSubtitle"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#B0FFFFFF"
+            android:textStyle="italic"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#40FFFFFF"
+            android:visibility="gone"
+            android:layout_marginVertical="5dp" />
+
+        <!-- Scrollable Definitions -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="420dp">
+
+            <LinearLayout
+                android:id="@+id/containerMeanings"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </ScrollView>
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Word Assist</string>
+    <string name="accessibility_description">
+        WordAssist detects selected text to show meaning
+    </string>
+    <string name="please_enable_the_required_permissions">Please allow the required permissions !</string>
+    <string name="accessibility_permission">Accessibility Permission</string>
+    <string name="allow">Allow</string>
+    <string name="floating_overlay">Floating Widget</string>
+    <string name="word_assist">Word Assist</string>
+    <string name="select_any_word_on_your_screen_and_wordassist_will_instantly_show_its_meaning_in_a_floating_widget">Select any word on your screen and WordAssist will instantly show its meaning in a floating widget.</string>
+</resources>

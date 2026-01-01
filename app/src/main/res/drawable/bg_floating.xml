@@ -1,0 +1,31 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:shape="rectangle">-->
+
+<!--    &lt;!&ndash; White background &ndash;&gt;-->
+<!--    <solid android:color="@android:color/white" />-->
+
+<!--    &lt;!&ndash; Green border (stroke) - adjust width if you want thicker/thinner &ndash;&gt;-->
+<!--    <stroke-->
+<!--        android:width="2dp"-->
+<!--        android:color="@color/teal_700" />  &lt;!&ndash; #10B981 &ndash;&gt;-->
+
+<!--    &lt;!&ndash; 5dp rounded corners (uniform on all sides) &ndash;&gt;-->
+<!--    <corners android:radius="10dp" />-->
+
+<!--</shape>-->
+
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+android:shape="rectangle">
+
+<solid android:color="#E91E1E1E"/>
+
+<corners android:radius="10dp"/>
+
+<padding
+    android:left="4dp"
+    android:top="4dp"
+    android:right="4dp"
+    android:bottom="4dp"/>
+</shape>
