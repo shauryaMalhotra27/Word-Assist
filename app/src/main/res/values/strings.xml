@@ -7,6 +7,8 @@
     <string name="accessibility_permission">Accessibility Permission</string>
     <string name="allow">Allow</string>
     <string name="floating_overlay">Floating Widget</string>
-    <string name="word_assist">Word Assist</string>
-    <string name="select_any_word_on_your_screen_and_wordassist_will_instantly_show_its_meaning_in_a_floating_widget">Select any word on your screen and WordAssist will instantly show its meaning in a floating widget.</string>
+    <string name="word_assist">Enable Floating Word Assist</string>
+    <string name="select_any_word_on_your_screen_and_wordassist_will_instantly_show_its_meaning_in_a_floating_widget">Select any word on your screen and Word Assist will instantly show its meaning in a floating widget.</string>
+    <string name="settings">Settings</string>
+    <string name="history">History</string>
 </resources>

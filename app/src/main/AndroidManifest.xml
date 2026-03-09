@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- REQUIRED FOR FLOATING OVERLAY -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,44 +14,42 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordAssist">
-
+        <activity
+            android:name=".ui.settings.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".ui.history.HistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.home.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- FLOATING WIDGET SERVICE (OVERLAY) -->
+        </activity> <!-- FLOATING WIDGET SERVICE (OVERLAY) -->
         <service
             android:name=".overlay.service.OverlayService"
             android:exported="false"
-            tools:ignore="Instantiatable" />
-
-        <!-- OPTIONAL FOREGROUND SERVICE -->
+            tools:ignore="Instantiatable" /> <!-- OPTIONAL FOREGROUND SERVICE -->
         <service
             android:name=".service.foreground.AppForegroundService"
-            android:foregroundServiceType="dataSync"
             android:exported="false"
-            tools:ignore="Instantiatable" />
-
-        <!-- ACCESSIBILITY SERVICE -->
+            android:foregroundServiceType="dataSync"
+            tools:ignore="Instantiatable" /> <!-- ACCESSIBILITY SERVICE -->
         <service
             android:name=".accessibility.WordAssistAccessibilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService"/>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config"/>
-        </service>
-
-        <!-- APP WIDGET PROVIDER (HOME SCREEN WIDGET WITH SWITCH) -->
+                android:resource="@xml/accessibility_service_config" />
+        </service> <!-- APP WIDGET PROVIDER (HOME SCREEN WIDGET WITH SWITCH) -->
         <receiver
             android:name=".widget.WordAssistWidgetProvider"
             android:exported="true">
@@ -65,7 +62,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
-
     </application>
 
 </manifest>

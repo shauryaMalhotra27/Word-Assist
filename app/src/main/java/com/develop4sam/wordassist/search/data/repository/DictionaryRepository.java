@@ -19,12 +19,20 @@ public class DictionaryRepository {
 
     public void save(String word, String meaning, String phonetic) {
         new Thread(() -> {
-            WordEntity entity = new WordEntity();
-            entity.word = word;
-            entity.fullMeaning = meaning;
-            entity.phonetic = phonetic;
-            entity.timestamp = System.currentTimeMillis();
-            db.wordDao().insert(entity);
+            WordEntity existing = db.wordDao().getByWord(word);
+            if (existing != null) {
+                // Update timestamp
+                existing.timestamp = System.currentTimeMillis();
+                db.wordDao().update(existing);
+            } else {
+                // Insert new
+                WordEntity entity = new WordEntity();
+                entity.word = word;
+                entity.fullMeaning = meaning;
+                entity.phonetic = phonetic;
+                entity.timestamp = System.currentTimeMillis();
+                db.wordDao().insert(entity);
+            }
         }).start();
     }
 }

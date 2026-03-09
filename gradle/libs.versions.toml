@@ -10,6 +10,8 @@ constraintlayout = "2.1.4"
 roomCommonJvm = "2.8.4"
 roomRuntime = "2.8.4"
 roomCompiler = "2.8.4"
+firebaseBom = "33.1.2"
+googleServices = "4.4.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,6 +25,10 @@ room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.r
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 

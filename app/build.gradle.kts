@@ -41,6 +41,8 @@ dependencies {
     implementation(libs.room.common.jvm)
     implementation(libs.room.runtime)
     testImplementation(libs.junit)
+    testImplementation("androidx.room:room-testing:2.8.4")
+    testImplementation("org.robolectric:robolectric:4.11.1")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     annotationProcessor(libs.room.compiler)

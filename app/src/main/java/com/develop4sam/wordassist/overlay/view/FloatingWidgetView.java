@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.develop4sam.wordassist.R;
 import com.develop4sam.wordassist.search.data.api.ApiClient;
 import com.develop4sam.wordassist.search.data.model.DictionaryResponse;
+import com.develop4sam.wordassist.search.data.repository.DictionaryRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +30,7 @@ public class FloatingWidgetView {
 
     private final Context context;
     private final WindowManager windowManager;
+    private final DictionaryRepository repository;
 
     private View rootView;
     private LinearLayout layoutCollapsed;
@@ -48,12 +50,14 @@ public class FloatingWidgetView {
     private int maxDefinitionsPerPos = 2;
     private int maxPartsOfSpeech = 3;
     private boolean autoExpandOnWordUpdate = false;
+    private boolean isManualMode = false;
 
     private DictionaryResponse lastResponse;
 
     public FloatingWidgetView(Context context) {
         this.context = context.getApplicationContext();
         this.windowManager = (WindowManager) this.context.getSystemService(Context.WINDOW_SERVICE);
+        this.repository = new DictionaryRepository(this.context);
     }
 
     @SuppressLint("InflateParams")
@@ -222,6 +226,18 @@ public class FloatingWidgetView {
                 containerMeanings.addView(spacer);
             }
         }
+
+        // Save to DB
+        StringBuilder fullMeaning = new StringBuilder();
+        if (data.meanings != null) {
+            for (DictionaryResponse.Meaning meaning : data.meanings) {
+                fullMeaning.append(meaning.partOfSpeech).append(": ");
+                for (DictionaryResponse.Definition def : meaning.definitions) {
+                    fullMeaning.append(def.definition).append("; ");
+                }
+            }
+        }
+        repository.save(data.word, fullMeaning.toString(), phonetic);
     }
 
     private void setErrorState(String message) {
@@ -294,6 +310,11 @@ public class FloatingWidgetView {
 
     public void setAutoExpandOnWordUpdate(boolean autoExpand) {
         this.autoExpandOnWordUpdate = autoExpand;
+    }
+
+    public void setManualMode(boolean manualMode) {
+        this.isManualMode = manualMode;
+        refresh();
     }
 
     private void refresh() {

@@ -10,12 +10,15 @@ import android.provider.Settings;
 import androidx.annotation.Nullable;
 
 import com.develop4sam.wordassist.overlay.view.FloatingWidgetView;
+import com.develop4sam.wordassist.overlay.view.ManualOverlayView;
 
 public class OverlayService extends Service {
 
-    private FloatingWidgetView widget;
+    private FloatingWidgetView autoWidget;
+    private ManualOverlayView manualWidget;
     private ClipboardManager clipboardManager;
     private ClipboardManager.OnPrimaryClipChangedListener clipListener;
+    private boolean isManualMode = false;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -25,55 +28,101 @@ public class OverlayService extends Service {
             return START_NOT_STICKY;
         }
 
-        if (widget == null) {
-            widget = new FloatingWidgetView(this);
-            widget.show();
+        // Check if mode changed
+        boolean newManualMode = intent != null && intent.getBooleanExtra("manualMode", false);
+        
+        // Initialize widgets if needed
+        if (autoWidget == null) {
+            autoWidget = new FloatingWidgetView(this);
+        }
+        if (manualWidget == null) {
+            manualWidget = new ManualOverlayView(this);
         }
 
-        if (widget == null) {
-            widget = new FloatingWidgetView(this);
-            widget.show();
+        // Handle mode switching
+        if (intent != null && intent.hasExtra("manualMode")) {
+            if (newManualMode != isManualMode) {
+                isManualMode = newManualMode;
+                
+                // Hide current widget and show the appropriate one
+                if (isManualMode) {
+                    if (autoWidget != null) autoWidget.remove();
+                    manualWidget.show();
+                } else {
+                    if (manualWidget != null) manualWidget.remove();
+                    autoWidget.show();
+                }
+            }
+        }
+
+        // Show the appropriate widget based on current mode
+        if (isManualMode) {
+            if (manualWidget != null) {
+                manualWidget.show();
+            }
+        } else {
+            if (autoWidget != null) {
+                autoWidget.show();
+            }
         }
 
         if (intent != null && intent.hasExtra("text")) {
-            widget.updateWord(intent.getStringExtra("text"));
-        }
-
-        if (clipboardManager == null) {
-
-            clipboardManager =
-                    (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-
-            clipListener = () -> {
-                ClipData clip = clipboardManager.getPrimaryClip();
-                if (clip != null && clip.getItemCount() > 0) {
-                    CharSequence text = clip.getItemAt(0).getText();
-                    if (text != null && text.length() > 1) {
-                        widget.updateWord(text.toString().trim());
-                    }
-                }
-            };
-
-            clipboardManager.addPrimaryClipChangedListener(clipListener);
-        }
-
-        if (intent != null) {
-            if (widget != null) {
-                // Update display settings even if widget already exists
-                if (intent.hasExtra("showPhonetic"))
-                    widget.setShowPhonetic(intent.getBooleanExtra("showPhonetic", true));
-                if (intent.hasExtra("showExamples"))
-                    widget.setShowExamples(intent.getBooleanExtra("showExamples", true));
-                if (intent.hasExtra("showSynonyms"))
-                    widget.setShowSynonyms(intent.getBooleanExtra("showSynonyms", true));
-                if (intent.hasExtra("showAntonyms"))
-                    widget.setShowAntonyms(intent.getBooleanExtra("showAntonyms", true));
-                if (intent.hasExtra("autoExpand"))
-                    widget.setAutoExpandOnWordUpdate(intent.getBooleanExtra("autoExpand", false));
+            if (!isManualMode && autoWidget != null) {
+                autoWidget.updateWord(intent.getStringExtra("text"));
             }
+        }
 
-            if (intent.hasExtra("text")) {
-                widget.updateWord(intent.getStringExtra("text"));
+        // Manage clipboard listener for auto mode only
+        if (!isManualMode) {
+            if (clipboardManager == null) {
+                clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
+                clipListener = () -> {
+                    ClipData clip = clipboardManager.getPrimaryClip();
+                    if (clip != null && clip.getItemCount() > 0) {
+                        CharSequence text = clip.getItemAt(0).getText();
+                        if (text != null && text.length() > 1) {
+                            if (autoWidget != null) {
+                                autoWidget.updateWord(text.toString().trim());
+                            }
+                        }
+                    }
+                };
+
+                clipboardManager.addPrimaryClipChangedListener(clipListener);
+            }
+        } else {
+            // In manual mode, cleanup clipboard listener if it exists
+            if (clipboardManager != null && clipListener != null) {
+                clipboardManager.removePrimaryClipChangedListener(clipListener);
+                clipListener = null;
+            }
+        }
+
+        // Update display settings for the current widget
+        if (intent != null) {
+            if (!isManualMode && autoWidget != null) {
+                // Update auto widget settings
+                if (intent.hasExtra("showPhonetic"))
+                    autoWidget.setShowPhonetic(intent.getBooleanExtra("showPhonetic", true));
+                if (intent.hasExtra("showExamples"))
+                    autoWidget.setShowExamples(intent.getBooleanExtra("showExamples", true));
+                if (intent.hasExtra("showSynonyms"))
+                    autoWidget.setShowSynonyms(intent.getBooleanExtra("showSynonyms", true));
+                if (intent.hasExtra("showAntonyms"))
+                    autoWidget.setShowAntonyms(intent.getBooleanExtra("showAntonyms", true));
+                if (intent.hasExtra("autoExpand"))
+                    autoWidget.setAutoExpandOnWordUpdate(intent.getBooleanExtra("autoExpand", false));
+            } else if (isManualMode && manualWidget != null) {
+                // Update manual widget settings
+                if (intent.hasExtra("showPhonetic"))
+                    manualWidget.setShowPhonetic(intent.getBooleanExtra("showPhonetic", true));
+                if (intent.hasExtra("showExamples"))
+                    manualWidget.setShowExamples(intent.getBooleanExtra("showExamples", true));
+                if (intent.hasExtra("showSynonyms"))
+                    manualWidget.setShowSynonyms(intent.getBooleanExtra("showSynonyms", true));
+                if (intent.hasExtra("showAntonyms"))
+                    manualWidget.setShowAntonyms(intent.getBooleanExtra("showAntonyms", true));
             }
         }
 
@@ -88,7 +137,9 @@ public class OverlayService extends Service {
             clipboardManager.removePrimaryClipChangedListener(clipListener);
         }
 
-        if (widget != null) widget.remove();
+        // Cleanup both widgets
+        if (autoWidget != null) autoWidget.remove();
+        if (manualWidget != null) manualWidget.remove();
         super.onDestroy();
     }
 
